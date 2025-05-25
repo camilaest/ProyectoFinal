@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="189.0" prefWidth="245.0" spacing="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="org.uniquindio.edu.co.poo.banco.viewController.InicioSesionViewController">
+   <children>
+       <Label text="Iniciar Sesión" />
+       <TextField fx:id="correoField" prefHeight="31.0" prefWidth="222.0" promptText="Correo" />
+       <PasswordField fx:id="contrasenaField" prefHeight="31.0" prefWidth="221.0" promptText="Contraseña" />
+       <Button onAction="#handleLogin" text="Iniciar sesión" />
+   </children>
+</VBox>

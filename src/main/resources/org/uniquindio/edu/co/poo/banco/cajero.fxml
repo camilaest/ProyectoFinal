@@ -6,9 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.uniquindio.edu.co.poo.banco.viewController.CajeroViewController">
+<AnchorPane prefHeight="900.0" prefWidth="1301.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.uniquindio.edu.co.poo.banco.viewController.CajeroViewController">
    <children>
-      <Label fx:id="txtRegistrarUusuario" layoutX="93.0" layoutY="14.0" text="Registrar Cliente" />
+      <Label layoutX="93.0" layoutY="14.0" text="Registrar Cliente" />
       <Label layoutX="19.0" layoutY="46.0" text="Nombre:" />
       <Label layoutX="16.0" layoutY="91.0" text="Apellidos:" />
       <Label layoutX="24.0" layoutY="135.0" text="Cedula:" />
@@ -17,13 +17,13 @@
       <TextField fx:id="txtApellidos" layoutX="85.0" layoutY="86.0" prefHeight="31.0" prefWidth="234.0" />
       <TextField fx:id="txtCedula" layoutX="85.0" layoutY="130.0" prefHeight="31.0" prefWidth="234.0" />
       <TextField fx:id="txtEmail" layoutX="85.0" layoutY="176.0" prefHeight="31.0" prefWidth="234.0" />
-      <Button fx:id="btnRegistrarCliente" layoutX="119.0" layoutY="419.0" mnemonicParsing="false" onAction="#onRegistrarCliente" text="Registrar" />
-      <Label fx:id="txtRegistrarUusuario1" layoutX="73.0" layoutY="304.0" text="Registrar Usuario" />
-      <Label layoutX="12.0" layoutY="343.0" text="NombreUsuario: " />
-      <TextField fx:id="txtNombreUsuario" layoutX="130.0" layoutY="338.0" prefHeight="31.0" prefWidth="194.0" />
-      <Label layoutX="19.0" layoutY="383.0" text="Contraseña: " />
-      <TextField fx:id="txtContraseña" layoutX="130.0" layoutY="378.0" prefHeight="31.0" prefWidth="194.0" />
-      <TableView fx:id="tblListClientes" layoutX="24.0" layoutY="458.0" prefHeight="304.0" prefWidth="569.0">
+      <Button fx:id="btnRegistrarCliente" layoutX="120.0" layoutY="392.0" mnemonicParsing="false" onAction="#onRegistrarCliente" text="Registrar" />
+      <Label layoutX="102.0" layoutY="282.0" text="Registrar Usuario" />
+      <Label layoutX="12.0" layoutY="317.0" text="NombreUsuario: " />
+      <TextField fx:id="txtNombreUsuario" layoutX="130.0" layoutY="312.0" prefHeight="31.0" prefWidth="194.0" />
+      <Label layoutX="27.0" layoutY="357.0" text="Contraseña: " />
+      <TextField fx:id="txtContraseña" layoutX="130.0" layoutY="352.0" prefHeight="31.0" prefWidth="194.0" />
+      <TableView fx:id="tblListClientes" layoutX="19.0" layoutY="430.0" prefHeight="248.0" prefWidth="569.0">
         <columns>
           <TableColumn fx:id="tbcNombre" prefWidth="140.0" text="Nombre" />
           <TableColumn fx:id="tbcApellidos" prefWidth="142.0" text="Apellidos" />
@@ -31,15 +31,23 @@
             <TableColumn fx:id="tbcEmail" prefWidth="197.0" text="Email" />
         </columns>
       </TableView>
-      <Button layoutX="78.0" layoutY="769.0" mnemonicParsing="false" onAction="#onLimpiar" text="Limpiar" />
-      <Button layoutX="357.0" layoutY="769.0" mnemonicParsing="false" onAction="#onEliminar" text="Eliminar" />
+      <Button layoutX="77.0" layoutY="690.0" mnemonicParsing="false" onAction="#onLimpiar" text="Limpiar" />
+      <Button layoutX="357.0" layoutY="690.0" mnemonicParsing="false" onAction="#onEliminar" text="Eliminar" />
       <Label layoutX="162.0" layoutY="215.0" text="Cuenta:" />
-      <RadioButton layoutX="23.0" layoutY="247.0" mnemonicParsing="false" text="Cuenta Corriente">
+
+      <RadioButton fx:id="cuentaCorriente" layoutX="23.0" layoutY="247.0" mnemonicParsing="false" text="Cuenta Corriente" />
+      <RadioButton fx:id="cuentaAhorros" layoutX="172.0" layoutY="247.0" mnemonicParsing="false" text="Cuenta Ahorros">
          <toggleGroup>
             <ToggleGroup fx:id="tipoCuentas" />
-         </toggleGroup>
-      </RadioButton>
-      <RadioButton layoutX="172.0" layoutY="247.0" mnemonicParsing="false" text="Cuenta Ahorros" toggleGroup="$tipoCuentas" />
-      <RadioButton layoutX="339.0" layoutY="247.0" mnemonicParsing="false" text="Cuenta Empresarial" toggleGroup="$tipoCuentas" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="cuentaEmpresarial" layoutX="339.0" layoutY="247.0" mnemonicParsing="false" text="Cuenta Empresarial" toggleGroup="$tipoCuentas" />
+      <Button fx:id="btnRealizarDeposito" layoutX="42.0" layoutY="732.0" mnemonicParsing="false" onAction="#onRealizarDeposito" text="Realizar Deposito" />
+      <Button fx:id="btnRealizarRetiros" layoutX="333.0" layoutY="732.0" mnemonicParsing="false" onAction="#mostrarVentanaRetirar" text="Realizar Retiros" />
+      <Label layoutX="622.0" layoutY="14.0" text="Movimientos de las cuentas " />
+      <TableView fx:id="tblListaDepositos" layoutX="622.0" layoutY="56.0" prefHeight="200.0" prefWidth="479.0">
+        <columns>
+            <TableColumn fx:id="tbcCodigoCuenta" prefWidth="127.0" text="Codigo Cuenta" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

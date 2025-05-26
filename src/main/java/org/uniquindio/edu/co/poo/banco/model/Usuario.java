@@ -34,4 +34,13 @@ public class Usuario {
     public void setRole(String role) {
         this.role = role;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nombreUsuario='" + nombreUsuario + '\'' +
+                ", contrasenia='" + contrasenia + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
 }

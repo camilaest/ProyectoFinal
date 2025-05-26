@@ -7,8 +7,8 @@ public class CuentaEmpresarial extends Cuenta {
     private double limiteTransferencia;
     private String nombreEmpresa;
 
-    public CuentaEmpresarial(double limiteTransferencia, String nombreEmpresa, Cliente cliente, LocalDate fechaCreacion, String codigo, double saldo, Cliente propietario) {
-        super(cliente, fechaCreacion, codigo, saldo, propietario);
+    public CuentaEmpresarial(double limiteTransferencia, String nombreEmpresa,  LocalDate fechaCreacion, double saldo) {
+        super( fechaCreacion, saldo);
         this.limiteTransferencia = limiteTransferencia;
         this.nombreEmpresa = nombreEmpresa;
     }
@@ -30,22 +30,19 @@ public class CuentaEmpresarial extends Cuenta {
     }
 
     @Override
-    public boolean retirar(double monto) {
-        if (saldo >= monto) {
-            saldo -= monto;
+    public String toString() {
+        return "CuentaEmpresarial{" +
+                "limiteTransferencia=" + limiteTransferencia +
+                ", nombreEmpresa='" + nombreEmpresa + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean depositar(double monto) {
+        if (monto > 0) {
+            saldo += monto;
             return true;
         }
         return false;
-    }
-
-    @Override
-    public void depositar(double monto) {
-        saldo += monto;
-
-    }
-
-    @Override
-    public double consultarSaldo() {
-        return 0;
     }
 }

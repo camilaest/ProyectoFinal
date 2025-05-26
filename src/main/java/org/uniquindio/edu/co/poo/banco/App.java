@@ -6,14 +6,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.uniquindio.edu.co.poo.banco.model.Banco;
-import org.uniquindio.edu.co.poo.banco.model.Cajero;
-import org.uniquindio.edu.co.poo.banco.model.Cliente;
-import org.uniquindio.edu.co.poo.banco.model.Usuario;
+import org.uniquindio.edu.co.poo.banco.model.*;
 import org.uniquindio.edu.co.poo.banco.viewController.*;
 
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class App extends Application {
 
@@ -135,10 +134,52 @@ public class App extends Application {
         Usuario u3 = new Usuario("carolina", "345", "Cliente");
         Cliente cliente1 = new Cliente("Maria", "Diaz", "567", "maria@D");
         Cajero cajero1 = new Cajero("sofia", "bernan", "567", "sofia@");
+        CuentaAhorros cuentaAhorros = new CuentaAhorros (2000, 4, LocalDate.now(), 50000);
+        Deposito deposito = new Deposito(cuentaAhorros.getCodigo(), 5000, LocalDateTime.now(), TipoMovimiento.DEPOSITO);
+        banco.registrarDeposito(deposito);
+        System.out.println(banco.getListaDepositos());
         banco.registrarUsuario(u1);
         banco.registrarUsuario(u2);
         banco.registrarUsuario(u3);
+        cliente1.agregarCuenta(cuentaAhorros);
         banco.registrarCliente(cliente1);
         banco.registrarCajero(cajero1);
+        banco.registrarCuenta2(cuentaAhorros);
+
+
+    }
+
+    public void mostrarVentanaDeposito(String titulo) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(App.class.getResource("deposito.fxml"));
+            Parent rootLayout = loader.load();
+            DepositoViewController depositoViewController = loader.getController();
+            depositoViewController.setApp(this);
+
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void mostrarVentanaRetirar(String titulo) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(App.class.getResource("retirar.fxml"));
+            Parent rootLayout = loader.load();
+            RetirarViewController retirarViewController = loader.getController();
+            retirarViewController.setApp(this);
+
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

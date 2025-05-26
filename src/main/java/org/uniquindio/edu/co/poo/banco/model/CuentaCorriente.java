@@ -7,8 +7,8 @@ public class CuentaCorriente extends Cuenta {
     private double sobregiro;
     private double comisionMensual;
 
-    public CuentaCorriente(double sobregiro, double comisionMensual, Cliente cliente, LocalDate fechaCreacion, String codigo, double saldo, Cliente propietario) {
-        super(cliente, fechaCreacion, codigo, saldo, propietario);
+    public CuentaCorriente(double sobregiro, double comisionMensual, LocalDate fechaCreacion, double saldo) {
+        super( fechaCreacion, saldo);
         this.sobregiro = sobregiro;
         this.comisionMensual = comisionMensual;
     }
@@ -29,24 +29,20 @@ public class CuentaCorriente extends Cuenta {
         this.comisionMensual = comisionMensual;
     }
 
-
+    @Override
+    public String toString() {
+        return "CuentaCorriente{" +
+                "sobregiro=" + sobregiro +
+                ", comisionMensual=" + comisionMensual +
+                '}';
+    }
 
     @Override
-    public boolean retirar(double monto) {
-        if (saldo >= monto) {
-            saldo -= monto;
+    public boolean depositar(double monto) {
+        if (monto > 0) {
+            saldo += monto;
             return true;
         }
         return false;
-    }
-
-    @Override
-    public void depositar(double monto) {
-        saldo += monto;
-    }
-
-    @Override
-    public double consultarSaldo() {
-        return 0;
     }
 }

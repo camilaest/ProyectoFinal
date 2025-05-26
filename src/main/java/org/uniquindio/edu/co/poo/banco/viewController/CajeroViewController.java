@@ -1,5 +1,6 @@
 package org.uniquindio.edu.co.poo.banco.viewController;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,15 +9,55 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.uniquindio.edu.co.poo.banco.App;
 import org.uniquindio.edu.co.poo.banco.controller.CajeroController;
-import org.uniquindio.edu.co.poo.banco.model.Cajero;
-import org.uniquindio.edu.co.poo.banco.model.Cliente;
-import org.uniquindio.edu.co.poo.banco.model.Usuario;
+import org.uniquindio.edu.co.poo.banco.model.*;
 
 public class CajeroViewController {
 
         CajeroController cajeroController;
         ObservableList<Cliente> listClientes = FXCollections.observableArrayList();
+        ObservableList<Deposito> listDepositos = FXCollections.observableArrayList();
+
         Cliente selectedCliente;
+
+
+        @FXML
+        private TableColumn<Deposito, TipoMovimiento> tbcTipoTransaccion;
+
+        @FXML
+        private TableView<Deposito> tblListaDepositos;
+
+        @FXML
+        private TableColumn<Deposito, String> tbcCodigoCuenta;
+
+        @FXML
+        private TableColumn<Deposito, Double> tbcSaldoTotal;
+
+        @FXML
+        private RadioButton cuentaCorriente;
+
+        @FXML
+        private RadioButton cuentaAhorros;
+
+        @FXML
+        private RadioButton cuentaEmpresarial;
+
+        private ToggleGroup tipoCuentas;
+
+        @FXML
+        private Button btnRealizarDeposito;
+
+        @FXML
+        private Button btnRealizarRetiros;
+
+        @FXML
+        void onRealizarDeposito(ActionEvent event) {
+                mostrarVentanaDeposito();
+        }
+
+        @FXML
+        void onRealizarRetiros(ActionEvent event) {
+
+        }
 
 
         @FXML
@@ -37,8 +78,6 @@ public class CajeroViewController {
 
         @FXML
         private TextField txtNombreUsuario;
-
-
 
         @FXML
         private TextField txtCedula;
@@ -81,6 +120,7 @@ public class CajeroViewController {
 
 
 
+
         App app;
 
         @FXML
@@ -88,6 +128,11 @@ public class CajeroViewController {
                 this.app=app;
                 this.cajeroController= new CajeroController(app.banco);
                 initView();
+                tipoCuentas = new ToggleGroup();
+
+                cuentaCorriente.setToggleGroup(tipoCuentas);
+                cuentaAhorros.setToggleGroup(tipoCuentas);
+                cuentaEmpresarial.setToggleGroup(tipoCuentas);
         }
 
         public void setApp(App app) {
@@ -111,6 +156,26 @@ public class CajeroViewController {
 
                 // Seleccionar elemento de la tabla
                 listenerSelection();
+                initDataBindingDeposito();
+                obtenerDepositos();
+                tblListaDepositos.getItems().clear();
+
+                // Agregar los elementos a la tabla
+                tblListaDepositos.setItems(listDepositos);
+
+
+        }
+
+
+        private void mostrarVentanaDeposito() {
+                app.mostrarVentanaDeposito("Realizar Deposito");
+                System.out.println("Botón Deposito presionado.");
+        }
+
+        @FXML
+        private void mostrarVentanaRetirar() {
+                app.mostrarVentanaRetirar("Realizar Retiro");
+                System.out.println("Botón Retiro presionado.");
         }
 
         private void initDataBinding() {
@@ -139,9 +204,13 @@ public class CajeroViewController {
                 Usuario usuario = buildUsuario();
                 if(cajeroController.registrarCliente(cliente)){
                         cajeroController.registrarUsuario(usuario);
+                        // registrar cuenta
+                        String tipoCuenta = obtenerTipoCuenta();
+                        cajeroController.registrarCuenta(tipoCuenta);
                         listClientes.add(cliente);
                 }
         }
+
 
         private void eliminarCliente() {
                 if (cajeroController.eliminarCliente(txtCedula.getText())) {
@@ -202,6 +271,31 @@ public class CajeroViewController {
                 txtNombreUsuario.clear();
                 txtContraseña.clear();
         }
+
+        public String obtenerTipoCuenta () {
+                Toggle selectedToggle = tipoCuentas.getSelectedToggle();
+                String tipoCuenta = "";
+                if (selectedToggle != null) {
+                        RadioButton selectedRadioButton = (RadioButton) selectedToggle;
+                        tipoCuenta = selectedRadioButton.getText();
+                        System.out.println("Cuenta seleccionada: " + tipoCuenta);
+                } else {
+                        System.out.println("Debe seleccionar un tipo de cuenta.");
+                }
+                return tipoCuenta;
+        }
+
+
+        private void initDataBindingDeposito() {
+                tbcCodigoCuenta.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigoCuentaADepositar()));
+                //tbcTipoTransaccion.setCellValueFactory(cellData -> new SimpleObjectProperty<>(((Deposito) cellData.getValue() ).getTipoTransaccion()));
+
+        }
+
+        private void obtenerDepositos() {
+                listDepositos.addAll(cajeroController.obtenerListaDeposito());
+        }
+
 }
 
 

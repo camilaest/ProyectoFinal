@@ -1,5 +1,7 @@
 package org.uniquindio.edu.co.poo.banco.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Banco {
@@ -10,7 +12,7 @@ public class Banco {
     private ArrayList<Cajero> listaCajeros;
     private ArrayList<Administrador> listaAdministradores;
     private ArrayList<Cuenta> listaCuentas;
-    private ArrayList<Transaccion> listaTransacciones;
+    private ArrayList<Movimiento> listaMovimientos;
 
 
     public Banco(String nombre, String ubicacion) {
@@ -21,7 +23,7 @@ public class Banco {
         this.listaCajeros = new ArrayList<>();
         this.listaAdministradores = new ArrayList<>();
         this.listaCuentas = new ArrayList<>();
-        this.listaTransacciones = new ArrayList<>();
+        this.listaMovimientos = new ArrayList<>();
     }
 
 
@@ -81,12 +83,12 @@ public class Banco {
         this.listaCuentas = listaCuentas;
     }
 
-    public ArrayList<Transaccion> getListaTransacciones() {
-        return listaTransacciones;
+    public ArrayList<Movimiento> getListaMovimientos() {
+        return listaMovimientos;
     }
 
-    public void setListaTransacciones(ArrayList<Transaccion> listaTransacciones) {
-        this.listaTransacciones = listaTransacciones;
+    public void setListaMovimientos(ArrayList<Movimiento> listaMovimientos) {
+        this.listaMovimientos = listaMovimientos;
     }
 
     public void registrarUsuario(Usuario usuario) {
@@ -193,17 +195,155 @@ public class Banco {
         return centinela;
     }
 
-    public boolean registrarCuenta(Cuenta nuevaCuenta) {
+    public boolean registrarCuenta(String tipoCuenta) {
+
+        //construye cuenta
+        if (tipoCuenta.equals("Cuenta Corriente")) {
+            CuentaCorriente cuentaCorriente = new CuentaCorriente(200000, 2000, LocalDate.now(), 0);
+            if (!verificarExistenciaCuenta(cuentaCorriente.codigo)) {
+                listaCuentas.add(cuentaCorriente);
+                return true;
+            }
+
+        } else if (tipoCuenta.equals("Cuenta Ahorros")) {
+            CuentaAhorros cuentaAhorros = new CuentaAhorros(2000, 0, LocalDate.now(), 0);
+            if (!verificarExistenciaCuenta(cuentaAhorros.codigo)) {
+                listaCuentas.add(cuentaAhorros);
+                return true;
+
+            } else {
+                CuentaEmpresarial cuentaEmpresarial = new CuentaEmpresarial(1000000, "Coco", LocalDate.now(), 0);
+                if (!verificarExistenciaCuenta(cuentaEmpresarial.codigo)) {
+                    listaCuentas.add(cuentaEmpresarial);
+                }
+                return true;
+
+            }
+
+
+        }
+        return false;
+    }
+
+    public void registrarCuenta2(Cuenta cuenta){
+        listaCuentas.add(cuenta);
+    }
+
+    public boolean verificarExistenciaCuenta(String codigo){
+
         for (Cuenta cuentaAux : listaCuentas) {
-            if (cuentaAux.getCodigo().equals(nuevaCuenta.getCodigo())) {
-                System.out.println("❌ La cuenta ya está registrada en el sistema.");
-                return false;
+            if (cuentaAux.getCodigo().equals(codigo)) {
+
+                return true;
+
             }
         }
+        return false;
+    }
 
-        listaCuentas.add(nuevaCuenta);
-        System.out.println("✅ Cuenta registrada exitosamente.");
+
+    /*public boolean depositarEntreCuentas(String codigoOrigen, String codigoDestino, double monto) {
+        Cuenta origen = buscarCuenta(codigoOrigen);
+        Cuenta destino = buscarCuenta(codigoDestino);
+
+        if (origen == null || destino == null) {
+            System.out.println("Error: Una de las cuentas no existe.");
+            return false;
+        }
+
+        if (monto <= 0) {
+            System.out.println("Error: El monto debe ser positivo.");
+            return false;
+        }
+
+        if (origen.realizarRetiro(monto)) {
+            destino.realizarDeposito(monto);
+
+            Cliente cliente1 = new Cliente ("Vero", "Perez", "321", "vero@");
+            Cliente cliente2 = new Cliente ("Sebas", "Ramo", "098", "sebas@");
+            Cuenta cuentaOrigen = new CuentaCorriente(50000, 5000, cliente1, LocalDate.now(), "345", 500000 );
+
+
+            Cuenta cuentaDestino = new CuentaAhorros(8000, 2, cliente2, LocalDate.now(), "345", 200000);
+
+            Transaccion transaccion = new Transaccion("123", LocalDateTime.now(), 5000, cuentaOrigen, cuentaDestino, TipoTransaccion.DEPOSITO );
+            listaTransacciones.add(transaccion);
+            System.out.println("Depósito exitoso de " + monto + " desde " + codigoOrigen + " a " + codigoDestino);
+            return true;
+        } else {
+            System.out.println("Error: Fondos insuficientes en la cuenta origen.");
+            return false;
+        }
+    }
+    */
+    private Cuenta buscarCuenta(String codigoCuenta) {
+        for (Cuenta cuentaAux : listaCuentas) {
+            if (cuentaAux.getCodigo().equals(codigoCuenta)) {
+                return cuentaAux;
+            }
+        }
+        return null;
+    }
+
+    public boolean realizarDeposito(Deposito deposito) {
+        // Verificar que el monto sea válido
+        if (deposito.getSaldoADepositar() <= 0) {
+            System.out.println("El monto debe ser mayor que cero.");
+            return false;
+        }
+
+        // Buscar la cuenta por su código
+        Cuenta cuenta = buscarCuentaPorCodigo(deposito.getCodigoCuentaADepositar());
+        if (cuenta == null) {
+            System.out.println("La cuenta no existe.");
+            return false;
+        }
+
+        // Realizar el depósito
+        cuenta.depositar(deposito.getSaldoADepositar());
+        //Agregar movimiento deposito a la lista de movimientos del banco
+        registrarDeposito(deposito);
+
+        System.out.println("Depósito exitoso. Nuevo saldo: " + cuenta.getSaldo());
         return true;
     }
 
+    public void registrarDeposito(Deposito deposito){
+        listaMovimientos.add(deposito);
+    }
+
+    public Cuenta buscarCuentaPorCodigo(String codigo) {
+        for (Cuenta cuenta : listaCuentas) {
+            if (cuenta.getCodigo().equals(codigo)) {
+                return cuenta;
+            }
+        }
+        return null; // No se encontró ninguna cuenta con ese código
+    }
+
+
+    public ArrayList<Deposito> getListaDepositos() {
+        ArrayList<Deposito> listaDepositos = new ArrayList<>();
+        for (Movimiento moviAux : listaMovimientos) {
+            if (moviAux.getTipoTransaccion() == TipoMovimiento.DEPOSITO) {
+                Deposito deposito= (Deposito) moviAux ;
+                listaDepositos.add(deposito);
+            }
+        }
+        return listaDepositos;
+    }
+
+    @Override
+    public String toString() {
+        return "Banco{" +
+                "nombre='" + nombre + '\'' +
+                ", ubicacion='" + ubicacion + '\'' +
+                ", listaClientes=" + listaClientes +
+                ", listaUsuarios=" + listaUsuarios +
+                ", listaCajeros=" + listaCajeros +
+                ", listaAdministradores=" + listaAdministradores +
+                ", listaCuentas=" + listaCuentas +
+                ", listaMovimientos=" + listaMovimientos +
+                '}';
+    }
 }

@@ -1,30 +1,23 @@
 package org.uniquindio.edu.co.poo.banco.model;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public abstract class Cuenta {
 
-    public Cliente cliente;
     public LocalDate fechaCreacion;
     public String codigo;
     public double saldo;
-    public Cliente propietario;
 
-    public Cuenta(Cliente cliente, LocalDate fechaCreacion, String codigo, double saldo, Cliente propietario) {
-        this.cliente = cliente;
+
+    public Cuenta(LocalDate fechaCreacion, double saldo) {
+
         this.fechaCreacion = fechaCreacion;
-        this.codigo = codigo;
         this.saldo = saldo;
-        this.propietario = propietario;
+        this.codigo = java.util.UUID.randomUUID().toString();
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
 
     public LocalDate getFechaCreacion() {
         return fechaCreacion;
@@ -50,15 +43,14 @@ public abstract class Cuenta {
         this.saldo = saldo;
     }
 
-    public Cliente getPropietario() {
-        return propietario;
-    }
+    public abstract boolean depositar(double monto);
 
-    public void setPropietario(Cliente propietario) {
-        this.propietario = propietario;
+    @Override
+    public String toString() {
+        return "Cuenta{" +
+                "fechaCreacion=" + fechaCreacion +
+                ", codigo='" + codigo + '\'' +
+                ", saldo=" + saldo +
+                '}';
     }
-
-    public abstract boolean retirar(double monto);
-    public abstract void depositar(double monto);
-    public abstract double consultarSaldo();
 }

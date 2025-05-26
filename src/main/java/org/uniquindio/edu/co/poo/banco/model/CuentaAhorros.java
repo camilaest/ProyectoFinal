@@ -7,8 +7,8 @@ public class CuentaAhorros extends Cuenta{
     private double tasaInteres;
     private int retiros;
 
-    public CuentaAhorros(double tasaInteres, int retiros, Cliente cliente, LocalDate fechaCreacion, String codigo, double saldo, Cliente propietario) {
-        super(cliente, fechaCreacion, codigo, saldo, propietario);
+    public CuentaAhorros(double tasaInteres, int retiros, LocalDate fechaCreacion, double saldo) {
+        super(fechaCreacion, saldo);
         this.tasaInteres = tasaInteres;
         this.retiros = retiros;
     }
@@ -29,24 +29,20 @@ public class CuentaAhorros extends Cuenta{
         this.retiros = retiros;
     }
 
+    @Override
+    public String toString() {
+        return "CuentaAhorros{" +
+                "tasaInteres=" + tasaInteres +
+                ", retiros=" + retiros +
+                '}';
+    }
 
     @Override
-    public boolean retirar(double monto) {
-        if (saldo >= monto) {
-            saldo -= monto;
+    public boolean depositar(double monto) {
+        if (monto > 0) {
+            saldo += monto;
             return true;
         }
         return false;
-
-    }
-
-    @Override
-    public void depositar(double monto) {
-        saldo += monto;
-    }
-
-    @Override
-    public double consultarSaldo() {
-        return 0;
     }
 }

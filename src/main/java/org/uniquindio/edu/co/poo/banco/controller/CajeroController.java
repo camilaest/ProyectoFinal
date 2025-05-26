@@ -2,6 +2,7 @@ package org.uniquindio.edu.co.poo.banco.controller;
 
 import org.uniquindio.edu.co.poo.banco.model.Banco;
 import org.uniquindio.edu.co.poo.banco.model.Cliente;
+import org.uniquindio.edu.co.poo.banco.model.Deposito;
 import org.uniquindio.edu.co.poo.banco.model.Usuario;
 
 import java.util.ArrayList;
@@ -20,6 +21,22 @@ public class CajeroController {
         return banco.registrarCliente(cliente);
 
     }
+    /*
+    public boolean depositarEntreCuentas(String codigoOrigen, String codigoDestino, double monto){
+        boolean exito = banco.depositarEntreCuentas(codigoOrigen, codigoDestino, monto);
+
+        // Luego se imprime el resultado según si fue exitosa o no
+        if (exito) {
+            System.out.println("✅ Se hizo la transacción correctamente.");
+        } else {
+            System.out.println("❌ No se pudo realizar la transacción.");
+        }
+
+        return exito;
+
+    }*/
+
+
 
     public void registrarUsuario(Usuario usuario) {
         banco.registrarUsuario(usuario);
@@ -38,5 +55,12 @@ public class CajeroController {
         return banco.actualizarCliente(cedula, cliente);
     }
 
+    public boolean registrarCuenta(String tipoCuenta) {
+        return banco.registrarCuenta(tipoCuenta);
+    }
 
+
+    public ArrayList<Deposito> obtenerListaDeposito() {
+        return banco.getListaDepositos();
+    }
 }

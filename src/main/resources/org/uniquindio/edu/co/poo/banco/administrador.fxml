@@ -32,6 +32,7 @@
         </columns>
       </TableView>
       <Button fx:id="btnLimpiarCajero" layoutX="49.0" layoutY="729.0" mnemonicParsing="false" onAction="#onLimpiarCajero" text="Limpiar" />
-      <Button fx:id="btnEliminarCajero" layoutX="310.0" layoutY="729.0" mnemonicParsing="false" onAction="#onEliminarCajero" text="Eliminar" />
+      <Button fx:id="btnEliminarCajero" layoutX="203.0" layoutY="735.0" mnemonicParsing="false" onAction="#onEliminarCajero" text="Eliminar" />
+      <Button fx:id="btnVolverHome" layoutX="342.0" layoutY="735.0" mnemonicParsing="false" onAction="#onVolverHome" text="Volver" />
    </children>
 </AnchorPane>

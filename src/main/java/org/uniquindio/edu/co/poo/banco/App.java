@@ -130,7 +130,7 @@ public class App extends Application {
     public void inicializarData(){
 
         Usuario u1= new Usuario("santiago", "1234", "Cajero");
-        Usuario u2 = new Usuario("luis", "234", "Administrador");
+        Usuario u2 = new Usuario("mari", "234", "Administrador");
         Usuario u3 = new Usuario("carolina", "345", "Cliente");
         Cliente cliente1 = new Cliente("Maria", "Diaz", "567", "maria@D");
         Cajero cajero1 = new Cajero("sofia", "bernan", "567", "sofia@");
@@ -139,6 +139,8 @@ public class App extends Application {
         Deposito deposito = new Deposito(cuentaAhorros.getCodigo(), 5000, LocalDateTime.now(), TipoMovimiento.DEPOSITO);
         Retiro retiro1 = new Retiro (cuentaAhorros.getCodigo(), LocalDateTime.now(), TipoMovimiento.RETIRO, 5000);
         Transaccion transaccion1 = new Transaccion(LocalDateTime.now(), cuentaAhorros.getCodigo(), cuentaAhorros2.getCodigo(), TipoMovimiento.TRANSACCION, 10000);
+        Administrador administrador = new Administrador("Mai", "perez", "234", "mari@");
+
         banco.registrarUsuario(u1);
         banco.registrarUsuario(u2);
         banco.registrarUsuario(u3);
@@ -150,6 +152,7 @@ public class App extends Application {
         banco.registrarCajero(cajero1);
         banco.registrarCuenta2(cuentaAhorros);
         banco.registrarCuenta2(cuentaAhorros2);
+        banco.registrarAdministrador(administrador);
 
         banco.realizarDeposito(deposito);
         banco.realizarRetiro(retiro1);

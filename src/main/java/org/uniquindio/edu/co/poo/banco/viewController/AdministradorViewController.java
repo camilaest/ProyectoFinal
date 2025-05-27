@@ -23,6 +23,14 @@ public class AdministradorViewController {
     Cajero selectedCajero;
 
         @FXML
+        void onVolverHome(ActionEvent event) {
+            app.openHome();
+         }
+
+         @FXML
+        private Button btnVolverHome;
+
+        @FXML
         private TextField txtContraseña;
 
         @FXML

@@ -240,6 +240,7 @@ public class CajeroViewController {
                         // registrar cuenta
                         String tipoCuenta = obtenerTipoCuenta();
                         cajeroController.registrarCuenta(tipoCuenta);
+
                         listClientes.add(cliente);
                 }
         }

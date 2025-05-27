@@ -200,6 +200,7 @@ public class Banco {
         //construye cuenta
         if (tipoCuenta.equals("Cuenta Corriente")) {
             CuentaCorriente cuentaCorriente = new CuentaCorriente(200000, 2000, LocalDate.now(), 0);
+            System.out.println(cuentaCorriente.getCodigo());
             if (!verificarExistenciaCuenta(cuentaCorriente.codigo)) {
                 listaCuentas.add(cuentaCorriente);
                 return true;
@@ -207,12 +208,14 @@ public class Banco {
 
         } else if (tipoCuenta.equals("Cuenta Ahorros")) {
             CuentaAhorros cuentaAhorros = new CuentaAhorros(2000, 0, LocalDate.now(), 0);
+            System.out.println(cuentaAhorros.getCodigo());
             if (!verificarExistenciaCuenta(cuentaAhorros.codigo)) {
                 listaCuentas.add(cuentaAhorros);
                 return true;
 
             } else {
                 CuentaEmpresarial cuentaEmpresarial = new CuentaEmpresarial(1000000, "Coco", LocalDate.now(), 0);
+                System.out.println(cuentaEmpresarial.getCodigo());
                 if (!verificarExistenciaCuenta(cuentaEmpresarial.codigo)) {
                     listaCuentas.add(cuentaEmpresarial);
                 }
@@ -437,6 +440,11 @@ public class Banco {
 
     public void registrarTransaccion(Transaccion transaccion) {
         listaMovimientos.add(transaccion);
+
+    }
+
+    public void registrarAdministrador(Administrador administrador) {
+        listaAdministradores.add(administrador);
 
     }
 }

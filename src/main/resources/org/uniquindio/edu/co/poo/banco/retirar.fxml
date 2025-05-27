@@ -6,10 +6,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.uniquindio.edu.co.poo.banco.viewController.RetirarViewController">
+<AnchorPane prefHeight="612.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.uniquindio.edu.co.poo.banco.viewController.RetirarViewController">
    <children>
       <Label layoutX="54.0" layoutY="22.0" text="Retirar Dinero" />
-      <Button layoutX="68.0" layoutY="292.0" mnemonicParsing="false" text="Retirar" />
+      <Button fx:id="btnRetirar" layoutX="37.0" layoutY="443.0" mnemonicParsing="false" onAction="#onRealizarRetiro" text="Retirar" />
+      <Label layoutX="24.0" layoutY="61.0" text="¿Cuanto dinero quieres retirar de la cuenta?" />
+      <TextField fx:id="txtSaldoRetirar" layoutX="24.0" layoutY="95.0" />
+      <Label layoutX="24.0" layoutY="136.0" text="Codigo de la cuenta " />
+      <TextField fx:id="txtCodigoCuentaRetirar" layoutX="24.0" layoutY="169.0" />
+      <TableView fx:id="tblListaRetiros" layoutX="24.0" layoutY="224.0" prefHeight="200.0" prefWidth="272.0">
+        <columns>
+          <TableColumn fx:id="btcCodigoCuenta" prefWidth="136.0" text="Codigo Cuenta" />
+          <TableColumn fx:id="btcSaldoRetirar" prefWidth="135.0" text="Saldo Retirar" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnVolver" layoutX="162.0" layoutY="443.0" mnemonicParsing="false" onAction="#onVolver" text="Volver" />
    </children>
 </AnchorPane>

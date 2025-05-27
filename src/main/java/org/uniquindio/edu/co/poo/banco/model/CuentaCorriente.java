@@ -45,4 +45,15 @@ public class CuentaCorriente extends Cuenta {
         }
         return false;
     }
+
+    @Override
+    public boolean retirar(double saldoRetiro) {
+        if (saldoRetiro > 0) {
+            saldo -= saldoRetiro;
+            return true;
+        }
+        return false;
+
+    }
+
 }

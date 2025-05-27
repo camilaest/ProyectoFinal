@@ -4,31 +4,41 @@ import java.time.LocalDateTime;
 
 public class Transaccion extends Movimiento {
 
-    private Cuenta cuentaOrigen;
-    private Cuenta cuentaDestino;
+    private String cuentaOrigen;
+    private String cuentaDestino;
+    private double saldoADepositar;
 
 
-    public Transaccion(LocalDateTime fecha, Cuenta cuentaOrigen, Cuenta cuentaDestino, TipoMovimiento tipoTransaccion) {
+    public Transaccion(LocalDateTime fecha, String cuentaOrigen, String cuentaDestino, TipoMovimiento tipoTransaccion, double saldoADepositar) {
         super( fecha, tipoTransaccion);
         this.cuentaOrigen = cuentaOrigen;
         this.cuentaDestino = cuentaDestino;
+        this.saldoADepositar = saldoADepositar;
 
     }
 
 
-    public Cuenta getCuentaOrigen() {
+    public double getSaldoADepositar() {
+        return saldoADepositar;
+    }
+
+    public void setSaldoADepositar(double saldoADepositar) {
+        this.saldoADepositar = saldoADepositar;
+    }
+
+    public String getCuentaOrigen() {
         return cuentaOrigen;
     }
 
-    public void setCuentaOrigen(Cuenta cuentaOrigen) {
+    public void setCuentaOrigen(String  cuentaOrigen) {
         this.cuentaOrigen = cuentaOrigen;
     }
 
-    public Cuenta getCuentaDestino() {
+    public String getCuentaDestino() {
         return cuentaDestino;
     }
 
-    public void setCuentaDestino(Cuenta cuentaDestino) {
+    public void setCuentaDestino(String cuentaDestino) {
         this.cuentaDestino = cuentaDestino;
     }
 
@@ -40,17 +50,5 @@ public class Transaccion extends Movimiento {
                 '}';
     }
 
-    /*public static String transferirDinero(Cuenta cuentaOrigen, Cuenta cuentaDestino, double monto) {
-        if (monto <= 0) {
-            return "El monto debe ser mayor que cero.";
-        }
 
-        if (cuentaOrigen.realizarRetiro(monto)) {
-            cuentaDestino.realizarDeposito(monto);
-            return "Transferencia exitosa de " + monto + " desde la cuenta " +
-                    cuentaOrigen.getCodigo() + " a la cuenta " + cuentaDestino.getCodigo();
-        } else {
-            return "Fondos insuficientes en la cuenta origen.";
-        }
-    }*/
 }

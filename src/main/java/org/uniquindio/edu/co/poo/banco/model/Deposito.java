@@ -14,7 +14,7 @@ public class Deposito extends Movimiento{
     }
 
 
-    public double getSaldoADepositar() {
+    public Double getSaldoADepositar() {
         return saldoADepositar;
     }
 

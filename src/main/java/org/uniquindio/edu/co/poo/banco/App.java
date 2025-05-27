@@ -135,17 +135,25 @@ public class App extends Application {
         Cliente cliente1 = new Cliente("Maria", "Diaz", "567", "maria@D");
         Cajero cajero1 = new Cajero("sofia", "bernan", "567", "sofia@");
         CuentaAhorros cuentaAhorros = new CuentaAhorros (2000, 4, LocalDate.now(), 50000);
+        CuentaAhorros cuentaAhorros2 = new CuentaAhorros (2000, 4, LocalDate.now(), 2000);
         Deposito deposito = new Deposito(cuentaAhorros.getCodigo(), 5000, LocalDateTime.now(), TipoMovimiento.DEPOSITO);
-        banco.registrarDeposito(deposito);
-        System.out.println(banco.getListaDepositos());
+        Retiro retiro1 = new Retiro (cuentaAhorros.getCodigo(), LocalDateTime.now(), TipoMovimiento.RETIRO, 5000);
+        Transaccion transaccion1 = new Transaccion(LocalDateTime.now(), cuentaAhorros.getCodigo(), cuentaAhorros2.getCodigo(), TipoMovimiento.TRANSACCION, 10000);
         banco.registrarUsuario(u1);
         banco.registrarUsuario(u2);
         banco.registrarUsuario(u3);
         cliente1.agregarCuenta(cuentaAhorros);
+        cliente1.agregarCuenta(cuentaAhorros2);
+
+
         banco.registrarCliente(cliente1);
         banco.registrarCajero(cajero1);
         banco.registrarCuenta2(cuentaAhorros);
+        banco.registrarCuenta2(cuentaAhorros2);
 
+        banco.realizarDeposito(deposito);
+        banco.realizarRetiro(retiro1);
+        banco.realizarTransaccion(transaccion1);
 
     }
 

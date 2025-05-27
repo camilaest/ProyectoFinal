@@ -43,10 +43,26 @@
       <RadioButton fx:id="cuentaEmpresarial" layoutX="339.0" layoutY="247.0" mnemonicParsing="false" text="Cuenta Empresarial" toggleGroup="$tipoCuentas" />
       <Button fx:id="btnRealizarDeposito" layoutX="42.0" layoutY="732.0" mnemonicParsing="false" onAction="#onRealizarDeposito" text="Realizar Deposito" />
       <Button fx:id="btnRealizarRetiros" layoutX="333.0" layoutY="732.0" mnemonicParsing="false" onAction="#mostrarVentanaRetirar" text="Realizar Retiros" />
-      <Label layoutX="622.0" layoutY="14.0" text="Movimientos de las cuentas " />
-      <TableView fx:id="tblListaDepositos" layoutX="622.0" layoutY="56.0" prefHeight="200.0" prefWidth="479.0">
+      <Label layoutX="622.0" layoutY="14.0" text="Movimientos Deposito de las cuentas " />
+      <TableView fx:id="tblListaDepositos" layoutX="622.0" layoutY="56.0" prefHeight="200.0" prefWidth="512.0">
         <columns>
             <TableColumn fx:id="tbcCodigoCuenta" prefWidth="127.0" text="Codigo Cuenta" />
+            <TableColumn fx:id="tbcSaldo" prefWidth="152.0" text="Saldo del deposito" />
+        </columns>
+      </TableView>
+      <Label layoutX="622.0" layoutY="293.0" text="Movimientos Retiro de las cuentas " />
+      <Label layoutX="622.0" layoutY="609.0" text="Movimientos Transferencia de las cuentas " />
+      <TableView fx:id="tblListaRetiros" layoutX="622.0" layoutY="350.0" prefHeight="200.0" prefWidth="512.0">
+        <columns>
+          <TableColumn fx:id="tbcCodigoCuentaRetiro" prefWidth="125.0" text="Codigo Cuenta" />
+          <TableColumn fx:id="tbcSaldoRetiro" prefWidth="142.0" text="Saldo Retiro" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tblListaTransferencias" layoutX="622.0" layoutY="663.0" prefHeight="200.0" prefWidth="512.0">
+        <columns>
+          <TableColumn fx:id="tbcCodigoOrigen" prefWidth="172.0" text="Codigo Cuenta Origen" />
+          <TableColumn fx:id="tbcCodigoDestino" minWidth="0.0" prefWidth="176.0" text="Codigo Cuenta Destino" />
+            <TableColumn fx:id="tbcSaldoTransferencia" minWidth="0.0" prefWidth="176.0" text="Saldo Transferencia" />
         </columns>
       </TableView>
    </children>

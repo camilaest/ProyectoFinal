@@ -333,6 +333,21 @@ public class Banco {
         return listaDepositos;
     }
 
+    public ArrayList<Retiro> getListaRetiros() {
+        ArrayList<Retiro> listaRetiros = new ArrayList<>();
+        for (Movimiento movimiento : listaMovimientos) {
+            if (movimiento.getTipoTransaccion() == TipoMovimiento.RETIRO) {
+                Retiro retiro = (Retiro) movimiento ;
+                listaRetiros.add(retiro);
+            }
+        }
+        return listaRetiros;
+    }
+
+    public void registrarRetiro(Retiro retiro){
+        listaMovimientos.add(retiro);
+    }
+
     @Override
     public String toString() {
         return "Banco{" +
@@ -345,5 +360,83 @@ public class Banco {
                 ", listaCuentas=" + listaCuentas +
                 ", listaMovimientos=" + listaMovimientos +
                 '}';
+    }
+
+    public boolean realizarRetiro(Retiro retiro) {
+        // Verificar que el monto sea válido
+        if (retiro.getSaldoRetiro() <= 0) {
+            System.out.println("El monto debe ser mayor que cero.");
+            return false;
+        }
+
+        // Buscar la cuenta por su código
+        Cuenta cuenta = buscarCuentaPorCodigo(retiro.getCodigoCuenta());
+        if (cuenta == null) {
+            System.out.println("La cuenta no existe.");
+            return false;
+        }
+
+        // Realizar el depósito
+        cuenta.retirar(retiro.getSaldoRetiro());
+        //Agregar movimiento deposito a la lista de movimientos del banco
+        registrarRetiro(retiro);
+
+        System.out.println("Retiro exitoso. Nuevo saldo: " + cuenta.getSaldo());
+        return true;
+    }
+
+    public boolean transferirDinero(Cuenta cuentaOrigen, Cuenta cuentaDestino, double monto) {
+        if (monto <= 0) {
+            return false;
+
+        }
+
+        if (cuentaOrigen.retirar(monto)) {
+            cuentaDestino.depositar(monto);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public ArrayList<Transaccion> getListaTransacciones() {
+        ArrayList<Transaccion> listaTransacciones = new ArrayList<>();
+        for (Movimiento movimiento : listaMovimientos) {
+            if (movimiento.getTipoTransaccion() == TipoMovimiento.TRANSACCION) {
+                Transaccion transaccion = (Transaccion) movimiento ;
+                listaTransacciones.add(transaccion);
+            }
+        }
+        return listaTransacciones;
+
+    }
+
+    public boolean realizarTransaccion(Transaccion transaccion) {
+        // Verificar que el monto sea válido
+        if (transaccion.getSaldoADepositar() <= 0) {
+            System.out.println("El monto debe ser mayor que cero.");
+            return false;
+        }
+
+        // Buscar la cuenta por su código
+        Cuenta cuentaOrigen = buscarCuentaPorCodigo(transaccion.getCuentaOrigen());
+        Cuenta cuentaDestino = buscarCuentaPorCodigo(transaccion.getCuentaDestino());
+        if (cuentaOrigen == null && cuentaDestino == null) {
+            System.out.println("La cuenta no existe.");
+            return false;
+        }
+
+        // Realizar el depósito
+        cuentaDestino.depositar(transaccion.getSaldoADepositar());
+        cuentaOrigen.retirar(transaccion.getSaldoADepositar());
+        //Agregar movimiento deposito a la lista de movimientos del banco
+        registrarTransaccion(transaccion);
+        System.out.println("Transferencia exitosa. Nuevo saldo: " + cuentaOrigen.getSaldo());
+        return true;
+    }
+
+    public void registrarTransaccion(Transaccion transaccion) {
+        listaMovimientos.add(transaccion);
+
     }
 }

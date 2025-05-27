@@ -1,9 +1,6 @@
 package org.uniquindio.edu.co.poo.banco.controller;
 
-import org.uniquindio.edu.co.poo.banco.model.Banco;
-import org.uniquindio.edu.co.poo.banco.model.Cliente;
-import org.uniquindio.edu.co.poo.banco.model.Deposito;
-import org.uniquindio.edu.co.poo.banco.model.Usuario;
+import org.uniquindio.edu.co.poo.banco.model.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -62,5 +59,9 @@ public class CajeroController {
 
     public ArrayList<Deposito> obtenerListaDeposito() {
         return banco.getListaDepositos();
+    }
+
+    public ArrayList<Retiro> obtenerListaRetiros() {
+        return banco.getListaRetiros();
     }
 }

@@ -6,9 +6,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.uniquindio.edu.co.poo.banco.viewController.TransaccionViewController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="524.0" prefWidth="732.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.uniquindio.edu.co.poo.banco.viewController.TransaccionViewController">
+   <children>
+      <Label layoutX="34.0" layoutY="21.0" text="Realizar Transferencia" />
+      <Label layoutX="34.0" layoutY="58.0" text="Cuenta Origen: " />
+      <Label layoutX="34.0" layoutY="97.0" text="Cuenta Destino: " />
+      <TextField fx:id="txtCuentaOrigen" layoutX="162.0" layoutY="53.0" />
+      <TextField fx:id="txtCuentaDestino" layoutX="162.0" layoutY="92.0" />
+      <Label layoutX="31.0" layoutY="141.0" text="Saldo a depositar: " />
+      <TextField fx:id="txtSaldoDepositar" layoutX="162.0" layoutY="136.0" />
+      <Button fx:id="btnRealizarTransferencia" layoutX="42.0" layoutY="185.0" mnemonicParsing="false" onAction="#onRealizar" text="Realizar Transferencia" />
+      <Button fx:id="btnVolver" layoutX="256.0" layoutY="185.0" mnemonicParsing="false" onAction="#onVolver" text="Volver" />
+      <TableView fx:id="tblListaTransferencias" layoutX="24.0" layoutY="231.0" prefHeight="200.0" prefWidth="343.0">
+        <columns>
+          <TableColumn fx:id="tbcCuentaOrigen" prefWidth="133.0" text="Cuenta Origen " />
+          <TableColumn fx:id="tbcCuentaDestino" prefWidth="138.0" text="Cuenta Destino" />
+            <TableColumn fx:id="tbcSaldo" prefWidth="52.0" text="Saldo" />
+        </columns>
+      </TableView>
+   </children>
 </AnchorPane>

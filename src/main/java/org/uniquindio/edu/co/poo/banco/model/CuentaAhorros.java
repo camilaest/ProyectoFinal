@@ -38,6 +38,16 @@ public class CuentaAhorros extends Cuenta{
     }
 
     @Override
+    public boolean retirar(double saldoRetiro) {
+        if (saldoRetiro > 0) {
+            saldo -= saldoRetiro;
+            return true;
+        }
+        return false;
+
+    }
+
+    @Override
     public boolean depositar(double monto) {
         if (monto > 0) {
             saldo += monto;
@@ -45,4 +55,5 @@ public class CuentaAhorros extends Cuenta{
         }
         return false;
     }
+
 }

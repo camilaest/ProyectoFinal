@@ -1,5 +1,6 @@
 package org.uniquindio.edu.co.poo.banco.viewController;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -16,21 +17,47 @@ public class CajeroViewController {
         CajeroController cajeroController;
         ObservableList<Cliente> listClientes = FXCollections.observableArrayList();
         ObservableList<Deposito> listDepositos = FXCollections.observableArrayList();
+        ObservableList<Retiro> listRetiros = FXCollections.observableArrayList();
 
         Cliente selectedCliente;
+
+
+
+
+        @FXML
+        private TableColumn<Retiro, String> tbcSaldoRetiro;
+
+        @FXML
+        private TableColumn<Transaccion, String> tbcCodigoDestino;
+
+        @FXML
+        private TableColumn<Transaccion, String> tbcCodigoOrigen;
+
+        @FXML
+        private TableView<Retiro> tblListaRetiros;
+
+        @FXML
+        private TableColumn<Transaccion, String> tbcSaldoTransferencia;
+
+        @FXML
+        private TableColumn<Retiro, String> tbcCodigoCuentaRetiro;
+
+        @FXML
+        private TableView<Transaccion> tblListaTransferencias;
+
 
 
         @FXML
         private TableColumn<Deposito, TipoMovimiento> tbcTipoTransaccion;
 
         @FXML
+        private TableColumn<Deposito, String> tbcSaldo;
+        @FXML
         private TableView<Deposito> tblListaDepositos;
 
         @FXML
         private TableColumn<Deposito, String> tbcCodigoCuenta;
 
-        @FXML
-        private TableColumn<Deposito, Double> tbcSaldoTotal;
 
         @FXML
         private RadioButton cuentaCorriente;
@@ -144,24 +171,30 @@ public class CajeroViewController {
         private void initView() {
                 // Traer los datos del cliente a la tabla
                 initDataBinding();
-
                 // Obtiene la lista
                 obtenerClientes();
-
                 // Limpiar la tabla
                 tblListClientes.getItems().clear();
-
                 // Agregar los elementos a la tabla
                 tblListClientes.setItems(listClientes);
-
                 // Seleccionar elemento de la tabla
                 listenerSelection();
+
+                //deposito
                 initDataBindingDeposito();
                 obtenerDepositos();
                 tblListaDepositos.getItems().clear();
-
                 // Agregar los elementos a la tabla
                 tblListaDepositos.setItems(listDepositos);
+
+                // retiro
+                initDataBindingRetiro();
+                obtenerRetiros();
+                tblListaRetiros.getItems().clear();
+                // Agregar los elementos a la tabla
+                tblListaRetiros.setItems(listRetiros);
+
+
 
 
         }
@@ -288,12 +321,24 @@ public class CajeroViewController {
 
         private void initDataBindingDeposito() {
                 tbcCodigoCuenta.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigoCuentaADepositar()));
+                tbcSaldo.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getSaldoADepositar())));
                 //tbcTipoTransaccion.setCellValueFactory(cellData -> new SimpleObjectProperty<>(((Deposito) cellData.getValue() ).getTipoTransaccion()));
 
         }
 
         private void obtenerDepositos() {
                 listDepositos.addAll(cajeroController.obtenerListaDeposito());
+        }
+
+        private void initDataBindingRetiro() {
+                tbcCodigoCuentaRetiro.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigoCuenta()));
+                tbcSaldoRetiro.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getSaldoRetiro())));
+                //tbcTipoTransaccion.setCellValueFactory(cellData -> new SimpleObjectProperty<>(((Deposito) cellData.getValue() ).getTipoTransaccion()));
+
+        }
+
+        private void obtenerRetiros() {
+                listRetiros.addAll(cajeroController.obtenerListaRetiros());
         }
 
 }

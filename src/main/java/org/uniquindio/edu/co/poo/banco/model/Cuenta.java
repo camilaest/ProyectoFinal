@@ -53,4 +53,8 @@ public abstract class Cuenta {
                 ", saldo=" + saldo +
                 '}';
     }
+
+    public abstract boolean retirar(double saldoRetiro);
+
+
 }

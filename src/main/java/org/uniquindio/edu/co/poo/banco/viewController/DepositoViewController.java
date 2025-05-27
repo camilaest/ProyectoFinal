@@ -122,7 +122,7 @@ public class DepositoViewController {
 
     private void mostrarInformacionDeposito(Deposito deposito) {
         if (deposito != null) {
-            //txtSaldoADepositar.setDouble.parseDouble((deposito.getSaldoADepositar()));
+            txtSaldoADepositar.setText(String.valueOf(deposito.getSaldoADepositar()));
             txtCodigoCuentaADepositar.setText(deposito.getCodigoCuentaADepositar());
         }
     }
